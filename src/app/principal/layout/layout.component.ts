@@ -90,7 +90,7 @@ export class LayoutComponent implements OnInit {
     if (idusuario == '') {
       this.setDataTable(this.usuarios);
     } else {
-      this.setDataTable(this.usuarios.filter(usu => usu.id == idusuario));
+      this.setDataTable(this.usuarios.filter(usu => usu.id.toString().includes(idusuario)));
     }
     // console.log(event.target.value);
   }
