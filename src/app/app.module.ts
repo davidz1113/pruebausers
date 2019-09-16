@@ -44,7 +44,7 @@ import { RouterModule } from '@angular/router';
 import { AppRoutes } from './app.routing';
 import { LayoutComponent } from './principal/layout/layout.component';
 import { HeaderComponent } from './principal/header/header.component';
-
+import { FilterPipe } from './servicios/filter.pipe';
 @NgModule({
   exports: [
     MatAutocompleteModule,
@@ -88,6 +88,7 @@ export class MaterialModule { }
     AppComponent,
     LayoutComponent,
     HeaderComponent,
+    FilterPipe 
   ],
   imports: [
     BrowserAnimationsModule,

@@ -14,14 +14,18 @@ declare const $: any; // importancion de la varible de bootstrap
 })
 export class LayoutComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'email', 'phone', 'username', 'address']; //nombre de cada columna
+  displayedColumns: string[] = ['id', 'name', 'email', 'phone', 'username', 'address']; //nombre de cada columna
   dataSource: MatTableDataSource<any> = new MatTableDataSource([]);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   //variable global para asignar el usuario selecciuonado de la tabla
-  userSeleccionado: any = null; 
+  userSeleccionado: any = null;
+
+  usuarios: any = [];
+
+  // iduser = '';
 
   /**
    * 
@@ -44,9 +48,9 @@ export class LayoutComponent implements OnInit {
       (response: any) => {
         // console.log(response);
         if (response) { //si la respuesta existe
-          this.dataSource = new MatTableDataSource(response);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
+          this.usuarios = response;
+          this.setDataTable(this.usuarios);
+
         } else {
           console.log('Error');
         }
@@ -55,6 +59,13 @@ export class LayoutComponent implements OnInit {
         console.log(err);
       }
     )
+  }
+
+  //metodo que configura la tabla
+  setDataTable(usuarios) {
+    this.dataSource = new MatTableDataSource(usuarios);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
 
@@ -70,5 +81,18 @@ export class LayoutComponent implements OnInit {
     $('#exampleModalLong').modal('show');
   }
 
+  /**
+   * 
+   * @param event evento del input 
+   */
+  filtrarDatos(event) {
+    let idusuario = event.target.value;
+    if (idusuario == '') {
+      this.setDataTable(this.usuarios);
+    } else {
+      this.setDataTable(this.usuarios.filter(usu => usu.id == idusuario));
+    }
+    // console.log(event.target.value);
+  }
 
 }

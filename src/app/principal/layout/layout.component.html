@@ -8,9 +8,18 @@
         <h1 class="col-sm-8">Listado de usuarios</h1>
       </div>
 
+      <mat-form-field>
+        <input matInput [(ngModel)]="iduser" type="number" (input)='filtrarDatos($event)'
+          placeholder="Buscar por id de usuario">
+      </mat-form-field>
       <div class="pane-scroll">
         <div class="mat-elevation-z8">
           <table mat-table [dataSource]="dataSource" matSort>
+
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+              <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+            </ng-container>
 
             <ng-container matColumnDef="name">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
@@ -49,6 +58,13 @@
 
           <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
         </div>
+
+        <ul>
+          <li *ngFor="let usu of usuarios | filter : iduser">
+            {{usu.id}}
+          </li>
+        </ul>
+
       </div>
 
 
